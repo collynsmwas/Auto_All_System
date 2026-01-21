@@ -4,9 +4,10 @@
 @details 包含谷歌账号自动化的PyQt6 GUI界面
 
 已迁移模块:
-- base_window: 基础窗口类
 - sheerid_gui: SheerID验证GUI
 - bind_card_gui: 绑卡订阅GUI
+
+注意: 基础窗口类已移到 gui/ 公共模块
 """
 
 import sys
@@ -18,33 +19,31 @@ _legacy_dir = os.path.join(_src_dir, '_legacy')
 if _legacy_dir not in sys.path:
     sys.path.insert(0, _legacy_dir)
 
+# 从公共gui模块导入基础类（为了向后兼容）
+from gui.base_window import BaseWindow, BaseDialog, resource_path, get_data_path
+
 # 导入已迁移的模块
-from .base_window import BaseWindow, BaseDialog, resource_path, get_data_path
 from .sheerid_gui import SheerIDWindow, VerifyWorker
 from .bind_card_gui import BindCardWindow, BindCardWorker
 
 # 导入尚未迁移的模块（从_legacy）
 try:
-    from create_window_gui import BrowserWindowCreatorGUI
     from auto_all_in_one_gui import AutoAllInOneWindow
 except ImportError as e:
     print(f"[google.frontend] 部分GUI模块导入失败: {e}")
-    BrowserWindowCreatorGUI = None
     AutoAllInOneWindow = None
 
 __all__ = [
-    # 基础类
+    # 基础类（从gui公共模块重新导出，向后兼容）
     'BaseWindow',
     'BaseDialog',
     'resource_path',
     'get_data_path',
-    # 已迁移GUI
+    # Google专属GUI
     'SheerIDWindow',
     'VerifyWorker',
     'BindCardWindow',
     'BindCardWorker',
     # 待迁移GUI
-    'BrowserWindowCreatorGUI',
     'AutoAllInOneWindow',
 ]
-

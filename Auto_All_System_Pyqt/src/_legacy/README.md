@@ -14,7 +14,7 @@
 | `bit_playwright.py` | Playwright封装 | `core/bit_playwright.py` | ✅ 已迁移 |
 | `bitbrowser_api.py` | 比特浏览器完整API | `core/bitbrowser_api.py` | ✅ 已迁移 |
 | `create_window.py` | 浏览器窗口创建 | - | ⏳ 待迁移 |
-| `create_window_gui.py` | 主窗口GUI | - | ⏳ 待迁移 |
+| `create_window_gui.py` | 主窗口GUI | `gui/main_window.py` | ✅ 已迁移（框架） |
 | `database.py` | 数据库管理 | `core/database.py` | ✅ 已迁移 |
 | `migrate_txt_to_db.py` | TXT迁移工具 | - | 🗑️ 不再需要 |
 | `run_playwright_google.py` | Google自动化 | `google/backend/google_auth.py` | ✅ 部分迁移 |
@@ -27,7 +27,8 @@
 |------|------|------|
 | `google_auth.py` | `google/backend/` | Google登录状态检测 |
 | `google_login_service.py` | `google/backend/` | Google登录服务 |
-| `base_window.py` | `google/frontend/` | GUI基础窗口类 |
+| `base_window.py` | `gui/` | GUI基础窗口类（公共模块） |
+| `main_window.py` | `gui/` | 主窗口框架（多业务） |
 
 ## 注意事项
 
@@ -37,4 +38,3 @@
 
 ---
 *最后更新: 2026-01-21*
-
