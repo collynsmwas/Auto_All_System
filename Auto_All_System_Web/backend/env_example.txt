@@ -1,0 +1,32 @@
+# Django配置
+DJANGO_ENVIRONMENT=development
+SECRET_KEY=your-secret-key-change-in-production
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+
+# 数据库配置
+DB_NAME=auto_all_system
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=localhost
+DB_PORT=5432
+
+# Redis配置
+REDIS_URL=redis://127.0.0.1:6379/1
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
+
+# Celery配置
+CELERY_BROKER_URL=redis://127.0.0.1:6379/0
+CELERY_RESULT_BACKEND=redis://127.0.0.1:6379/0
+
+# 加密密钥（用于敏感数据加密）
+ENCRYPTION_KEY=your-fernet-encryption-key-change-in-production
+
+# 比特浏览器API
+# Docker环境：使用 host.docker.internal 访问宿主机上的比特浏览器
+# 本地开发：使用 127.0.0.1
+BITBROWSER_API_URL=http://host.docker.internal:54345
+
+# SheerID API（可选）
+SHEERID_API_KEY=your-sheerid-api-key

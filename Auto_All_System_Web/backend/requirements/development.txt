@@ -1,0 +1,9 @@
+-r base.txt
+
+# 开发工具
+django-debug-toolbar==4.2.0
+ipython==8.20.0
+black==24.1.1
+flake8==7.0.0
+pytest==7.4.4
+pytest-django==4.7.0

@@ -1,0 +1,49 @@
+# Django核心
+Django==5.0.1
+djangorestframework==3.14.0
+django-filter==23.5
+django-cors-headers==4.3.1
+
+# 数据库
+psycopg2-binary==2.9.9
+dj-database-url==2.1.0
+
+# 缓存
+django-redis==5.4.0
+hiredis==2.3.2
+
+# 认证
+djangorestframework-simplejwt==5.3.1
+PyJWT==2.8.0
+
+# Celery
+celery==5.3.6
+redis==5.0.1
+
+# WebSocket
+channels==4.0.0
+channels-redis==4.1.0
+
+# API文档
+drf-yasg==1.21.7
+
+# 加密
+cryptography==42.0.1
+
+# 浏览器自动化
+playwright==1.40.0
+
+# 2FA
+pyotp==2.9.0
+
+# 工具
+python-dotenv==1.0.0
+Pillow==10.2.0
+requests==2.31.0
+
+# 翻译和网络
+deep-translator==1.11.4
+aiohttp==3.9.1
+
+# WSGI服务器
+gunicorn==21.2.0

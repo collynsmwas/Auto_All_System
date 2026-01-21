@@ -1,66 +1,401 @@
-# Exclude configuration files with sensitive data
-accounts.txt
-proxies.txt
-sheerIDlink.txt
-无资格号.txt
-已绑卡号.txt
-已验证未绑卡.txt
-有资格待验证号.txt
-超时或其他错误.txt
-sheerID_verified_failed.txt
-2fa_codes.txt
-sheerid_tool/
+# ============================================
+# Git 版本管理配置文件
+# 用于排除不应提交到版本库的文件
+# ============================================
 
-# Exclude database files
+# ============================================
+# 1. 敏感数据文件（包含密码、账号等）
+# ============================================
+
+# 账号相关数据文件（包含真实账号密码）
+**/accounts.txt
+**/proxies.txt
+**/cards.txt
+**/sheerIDlink.txt
+**/2fa_codes.txt
+
+# SheerID 验证结果（可能包含隐私信息）
+**/sheerID_verified_*.txt
+
+# 分类结果文件（包含账号信息）
+**/无资格号.txt
+**/已绑卡号.txt
+**/已验证未绑卡.txt
+**/有资格待验证号.txt
+**/超时或其他错误.txt
+
+# 保留示例文件供参考
+!**/accounts_example.txt
+!**/proxies_example.txt
+
+# ============================================
+# 2. 数据库文件
+# ============================================
+
+# SQLite 数据库
 *.db
 *.db-journal
 *.sqlite
 *.sqlite3
 
-# Exclude log files
-*.log
+# PostgreSQL dumps
+*.sql
+*.dump
 
-# Exclude debug/test files
+# ============================================
+# 3. Python 相关
+# ============================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# 保留项目需要的 spec 文件
+!Auto_All_System_Pyqt/scripts/*.spec
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+*.cover
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# ============================================
+# 4. Django 相关
+# ============================================
+
+# Django migrations（根据项目需求决定是否忽略）
+# **/migrations/*.py
+# !**/migrations/__init__.py
+
+# Django collected static files
+**/staticfiles/
+**/static/admin/
+**/static/rest_framework/
+
+# Django media files（用户上传的文件）
+**/media/*
+!**/media/.gitkeep
+
+# Django secret key and settings
+**/settings/local.py
+**/settings/production_local.py
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+**/env_secret.txt
+
+# Django logs
+**/logs/*.log
+**/logs/django.log
+
+# ============================================
+# 5. Node.js / Vue / 前端相关
+# ============================================
+
+# Dependencies
+**/node_modules/
+**/bower_components/
+
+# Production build files
+**/frontend/dist/
+**/frontend/build/
+
+# npm/yarn logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Package manager lock files（根据团队约定决定）
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Editor directories and files
+.DS_Store
+*.local
+
+# TypeScript
+*.tsbuildinfo
+
+# ============================================
+# 6. 日志文件
+# ============================================
+
+*.log
+logs/
+*.log.*
+
+# 保留日志目录结构
+!**/logs/.gitkeep
+
+# ============================================
+# 7. 临时文件和缓存
+# ============================================
+
+# 临时配置文件
+**/temp_config.json
+**/temp_*.json
+**/temp_*.txt
+
+# 临时图片和截图
+temp_*.png
+temp_*.jpg
+debug_*.png
 debug_*.html
 step*.png
 error*.png
 
-# Exclude all images by default
-*.jpg
-*.jpeg
-*.png
-*.gif
-*.bmp
-*.svg
-*.ico
+# Playwright 相关
+.playwright/
+**/playwright/.auth/
 
-# Exception: Keep specific community images
-!Telegram.jpg
-!Telegram.png
-!QQ.jpg
-!zanshang.jpg
+# ============================================
+# 8. IDE 和编辑器配置
+# ============================================
 
-# Exclude build artifacts and temp files
-build/
-dist/
-*.spec
-__pycache__/
-*.pyc
-temp_config.json
-temp_icon.png
-
-# Exclude IDE settings
+# PyCharm
 .idea/
+*.iml
+*.iws
+.idea_modules/
+
+# VS Code
 .vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
 *.swp
 *.swo
 *~
+.*.sw[a-p]
 
-# Exclude virtual env
-venv/
-env/
+# Emacs
+*~
+\#*\#
+.\#*
 
-# Exclude OS files
+# ============================================
+# 9. 操作系统文件
+# ============================================
+
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
 Thumbs.db
-desktop.ini
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+.Trash-*
+.directory
+.nfs*
+
+# ============================================
+# 10. Docker 相关
+# ============================================
+
+# Docker volumes
+**/volumes/
+**/docker-volumes/
+
+# Docker环境文件
+docker-compose.override.yml
+.dockerignore
+
+# ============================================
+# 11. 构建产物和打包文件
+# ============================================
+
+# PyInstaller 打包输出
+**/dist/*.exe
+**/build/
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# ============================================
+# 12. 备份文件
+# ============================================
+
+*.bak
+*.backup
+*.old
+*.orig
+*_backup
+*_old
+
+# ============================================
+# 13. 图片和媒体文件（选择性排除）
+# ============================================
+
+# 临时和调试图片
+debug_*.jpg
+debug_*.jpeg
+debug_*.png
+debug_*.gif
+
+# 用户上传的图片（已在 media 中排除）
+
+# 但保留项目资源图片
+!**/resources/**/*.png
+!**/resources/**/*.jpg
+!**/resources/**/*.jpeg
+!**/resources/**/*.gif
+!**/resources/**/*.svg
+!**/resources/**/*.ico
+
+# 保留文档中的图片
+!**/docs/**/*.png
+!**/docs/**/*.jpg
+!**/文档/**/*.png
+!**/文档/**/*.jpg
+
+# 保留特定社区图片
+!**/Telegram.png
+!**/Telegram.jpg
+!**/QQ.jpg
+!**/QQ.png
+!**/zanshang.jpg
+
+# ============================================
+# 14. 第三方工具和临时目录
+# ============================================
+
+# Sheerid tool
+**/sheerid_tool/
+
+# Test output
+**/test-results/
+**/test-reports/
+
+# Coverage reports
+**/coverage/
+**/.nyc_output/
+
+# ============================================
+# 15. 文档和配置的例外规则
+# ============================================
+
+# 确保保留以下重要文件
+!README.md
+!**/README.md
+!LICENSE
+!**/LICENSE
+!requirements.txt
+!**/requirements.txt
+!**/requirements/*.txt
+!package.json
+!**/env_example.txt
+!**/*_example.txt
+!**/*_template.txt
+
+# 保留所有文档
+!**/*.md
+!**/docs/**
+!**/文档/**
+
+# 保留脚本文件
+!**/*.sh
+!**/*.bat
+
+# ============================================
+# 项目特定排除
+# ============================================
+
+# 比特浏览器相关
+**/bitbrowser_cache/
+
+# Playwright 浏览器文件
+**/ms-playwright/
+
+# ============================================
+# 说明
+# ============================================
+#
+# 本 .gitignore 文件适用于包含以下组件的项目：
+# - Django 后端 (Python)
+# - Vue 前端 (Node.js)
+# - PyQt 桌面应用 (Python)
+# - Playwright 自动化测试
+#
+# 主要保护：
+# 1. 敏感数据（账号、密码、代理）
+# 2. 数据库文件
+# 3. 构建产物
+# 4. 临时文件
+# 5. IDE 配置
+#
+# 主要保留：
+# 1. 源代码
+# 2. 文档
+# 3. 配置示例
+# 4. 资源文件
+# 5. 项目结构
+#
+# 最后更新: 2026-01-19
+# ============================================

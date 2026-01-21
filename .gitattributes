@@ -1,0 +1,167 @@
+# Git 属性配置文件
+# 用于统一跨平台的文本文件处理
+
+# ============================================
+# 自动检测文本文件并标准化行尾
+# ============================================
+* text=auto
+
+# ============================================
+# 文本文件 - 使用 LF (Unix 风格)
+# ============================================
+
+# 源代码
+*.py text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.vue text eol=lf
+*.jsx text eol=lf
+*.tsx text eol=lf
+
+# Web 文件
+*.html text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.sass text eol=lf
+*.less text eol=lf
+
+# 配置文件
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.ini text eol=lf
+*.conf text eol=lf
+*.config text eol=lf
+
+# 文档
+*.md text eol=lf
+*.txt text eol=lf
+*.rst text eol=lf
+
+# 脚本文件（Unix）
+*.sh text eol=lf
+
+# ============================================
+# 文本文件 - 使用 CRLF (Windows 风格)
+# ============================================
+
+# Windows 脚本和批处理文件
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# ============================================
+# 二进制文件 - 不进行行尾转换
+# ============================================
+
+# 图片
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.webp binary
+
+# 压缩文件
+*.zip binary
+*.tar binary
+*.gz binary
+*.rar binary
+*.7z binary
+
+# 可执行文件
+*.exe binary
+*.dll binary
+*.so binary
+*.dylib binary
+
+# 数据库文件
+*.db binary
+*.sqlite binary
+*.sqlite3 binary
+
+# 其他二进制文件
+*.pdf binary
+*.ttf binary
+*.woff binary
+*.woff2 binary
+*.eot binary
+
+# ============================================
+# Git LFS（大文件存储）- 如果使用
+# ============================================
+
+# 如果项目中有大文件，可以启用 Git LFS
+# 安装: git lfs install
+# 
+# 示例：
+# *.psd filter=lfs diff=lfs merge=lfs -text
+# *.ai filter=lfs diff=lfs merge=lfs -text
+# *.mp4 filter=lfs diff=lfs merge=lfs -text
+
+# ============================================
+# 语言特定设置
+# ============================================
+
+# Python
+*.py diff=python
+
+# JavaScript/TypeScript
+*.js diff=javascript
+*.ts diff=typescript
+
+# ============================================
+# 导出忽略（创建归档时排除）
+# ============================================
+
+# 测试和文档不需要在发布包中
+.gitattributes export-ignore
+.gitignore export-ignore
+*.md export-ignore
+docs/ export-ignore
+文档/ export-ignore
+tests/ export-ignore
+
+# ============================================
+# 合并策略
+# ============================================
+
+# 锁文件不自动合并
+package-lock.json merge=binary
+yarn.lock merge=binary
+Pipfile.lock merge=binary
+
+# ============================================
+# 差异显示设置
+# ============================================
+
+# 图片显示 exif 信息
+*.png diff=exif
+*.jpg diff=exif
+*.jpeg diff=exif
+
+# Word 文档
+*.doc diff=word
+*.docx diff=word
+
+# ============================================
+# 语言检测（GitHub linguist）
+# ============================================
+
+# 文档不参与语言统计
+*.md linguist-documentation
+docs/* linguist-documentation
+文档/* linguist-documentation
+
+# 生成的代码不参与统计
+**/migrations/* linguist-generated
+**/node_modules/* linguist-vendored
+**/dist/* linguist-generated
+**/build/* linguist-generated
+
+# 指定项目主要语言
+*.py linguist-language=Python
+*.vue linguist-language=Vue
+

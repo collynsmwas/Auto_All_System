@@ -1,0 +1,153 @@
+services:
+  # PostgreSQL 数据库
+  db:
+    container_name: db
+    image: postgres:14
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=auto_all_db
+      - POSTGRES_USER=auto_all_user
+      - POSTGRES_PASSWORD=your_password_here
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U auto_all_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis 缓存和消息队列
+  redis:
+    container_name: redis
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Django 后端
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./backend:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/.env
+    environment:
+      # Docker环境标识（必须设置为docker才能使用host.docker.internal）
+      - DJANGO_ENVIRONMENT=docker
+      # 数据库配置
+      - DB_HOST=db
+      - DB_NAME=auto_all_db
+      - DB_USER=auto_all_user
+      - DB_PASSWORD=your_password_here
+      # Redis配置
+      - REDIS_URL=redis://redis:6379/1
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      # HTTP配置
+      - ENABLE_HTTPS=false
+      - ALLOWED_HOSTS=localhost,127.0.0.1,backend
+      # 比特浏览器API（使用host.docker.internal访问宿主机）
+      - BITBROWSER_API_URL=http://host.docker.internal:54345
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Celery Worker
+  celery:
+    container_name: celery
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: celery -A config worker -l info
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    environment:
+      # Docker环境标识
+      - DJANGO_ENVIRONMENT=docker
+      # 数据库配置
+      - DB_HOST=db
+      - DB_NAME=auto_all_db
+      - DB_USER=auto_all_user
+      - DB_PASSWORD=your_password_here
+      # Redis配置
+      - REDIS_URL=redis://redis:6379/1
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      # 比特浏览器API
+      - BITBROWSER_API_URL=http://host.docker.internal:54345
+    depends_on:
+      - db
+      - redis
+      - backend
+
+  # Celery Beat (定时任务)
+  celery-beat:
+    container_name: celery-beat
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: celery -A config beat -l info
+    volumes:
+      - ./backend:/app
+    env_file:
+      - ./backend/.env
+    environment:
+      # Docker环境标识
+      - DJANGO_ENVIRONMENT=docker
+      # 数据库配置
+      - DB_HOST=db
+      - DB_NAME=auto_all_db
+      - DB_USER=auto_all_user
+      - DB_PASSWORD=your_password_here
+      # Redis配置
+      - REDIS_URL=redis://redis:6379/1
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      # 比特浏览器API
+      - BITBROWSER_API_URL=http://host.docker.internal:54345
+    depends_on:
+      - db
+      - redis
+      - backend
+
+  # Vue 3 前端
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/nginx.conf:/etc/nginx/nginx.conf
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
+

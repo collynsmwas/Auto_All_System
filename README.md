@@ -1,235 +1,392 @@
-# BitBrowser Automation Tool (比特浏览器自动化管理工具)
+# 🚀 BitBrowser Automation System
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Python](https://img.shields.io/badge/python-3.12-blue.svg)
+<div align="center">
 
-这是一个基于 Python/PyQt6 开发的比特浏览器（BitBrowser）自动化管理工具，支持批量创建窗口、自动分配代理、自动化提取 SheerID 验证链接以及账号资格检测等功能。
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.12-blue.svg)
+![Django](https://img.shields.io/badge/Django-5.0-green.svg)
+![Vue](https://img.shields.io/badge/Vue-3.x-brightgreen.svg)
 
-使用教程文档：https://docs.qq.com/doc/DSEVnZHprV0xMR05j?no_promotion=1&is_blank_or_template=blank
----
+**专业的比特浏览器自动化管理系统 | Google One 学生优惠批量处理解决方案**
 
-## 📢 广告 / Advertisement
+[快速开始](#-快速开始) • [功能特性](#-功能特性) • [技术栈](#-技术栈) • [文档](#-文档)
 
-🏆 **推荐使用比特浏览器 (BitBrowser)** - 专为跨境电商/社媒营销设计的指纹浏览器
-👉 **[点击注册 / Register Here](https://www.bitbrowser.cn/?code=vl9b7j)**
-
-💳 **虚拟卡推荐 - HolyCard** - 支持Gemini订阅、GPT Team、0刀Plus，一张低至2R
-👉 **[立即申请 / Apply Now](https://www.holy-card.com/)**
-
-*(通过此链接注册可获得官方支持与优惠)*
+</div>
 
 ---
 
-## ✨ 功能特性 (Features)
+## 📢 赞助商 / Sponsors
 
-* **批量窗口创建**:
-  * **模板克隆**: 支持通过输入模板窗口 ID 进行克隆。
-  * **默认模板**: 内置通用配置模板，一键快速创建。
-* **智能命名**:
-  * **自定义前缀**: 支持输入窗口名前缀 (如 "店铺A")，自动生成 "店铺A_1", "店铺A_2"。
-  * **自动序号**: 若不指定前缀，自动使用模板名称或 "默认模板" 加序号。
-* **自动化配置**: 自动读取 `accounts.txt` 和 `proxies.txt`，批量绑定账号与代理 IP。
-* **2FA 验证码管理**: 自动从浏览器备注或配置中提取密钥，批量生成并保存 2FA 验证码。
-* **SheerID 链接提取**:
-  * 全自动打开浏览器 -> 登录 Google -> 跳转活动页 -> 提取验证链接。
-  * **精准状态识别**: 自动区分 5 种账号状态：
-    1. 🔗 **有资格待验证**: 获取到 SheerID 验证链接。
-    2. ✅ **已验证未绑卡**: 有资格且已验证（显示 "Get student offer"）。
-    3. 💳 **已绑卡订阅**: 已订阅/已绑卡状态。
-    4. ❌ **无资格**: 检测到 "此优惠目前不可用"。
-    5. ⏳ **超时/错误**: 检测超时 (10s) 或其他提取异常。
-  * **多语言支持**: 内置多语言关键词库及自动翻译兜底，支持全球各种语言界面的账号检测。
-* **🎯 自动绑卡功能** (NEW!):
-  * **智能 iframe 识别**: 自动处理 Google Payments 的复杂嵌套 iframe 结构。
-  * **一键绑卡**: 自动填写卡号、过期日期、CVV 并提交。
-  * **订阅激活**: 自动点击订阅按钮完成整个流程。
-  * **容错机制**: 支持多种页面结构，适配不同账号状态。
-* **📊 Web 管理界面** (NEW!):
-  * **数据库管理**: SQLite 数据库作为单一数据源，自动同步文本文件。
-  * **实时查看**: 浏览器访问 `http://localhost:8080` 查看所有账号状态。
-  * **筛选搜索**: 支持按状态筛选、关键词搜索。
-  * **批量导出**: 一键导出符合条件的账号数据。
-  * **点击复制**: 所有字段一键点击复制，提升操作效率。
-  * **自动启动**: GUI 启动时自动在后台启动 Web 服务。
-* **批量操作**: 支持批量打开、关闭、删除窗口。
+<table>
+<tr>
+<td align="center" width="20%">
 
-## 🛠️ 安装与使用 (Installation & Usage)
+**🌐 比特浏览器**  
+跨境电商/社媒营销指纹浏览器
 
-### 方式一：直接运行 (推荐)
+👉 **[点击注册](https://www.bitbrowser.cn/?code=vl9b7j)**
 
-无需安装 Python 环境，直接下载 Release 中的 `.exe` 文件运行即可。
+</td>
+<td align="center" width="20%">
 
-1. 下载 `BitBrowserAutoManager.exe`。
-2. 在同级目录下准备好配置文件 (见下文)。
-3. 双击运行程序。
+**💳 HolyCard**  
+Gemini/GPT订阅，一张低至2R
 
-### 方式二：源码运行
+👉 **[立即申请](https://www.holy-card.com/)**
 
-1. 克隆仓库:
-   ```bash
-   git clone https://github.com/yourusername/bitbrowser-auto-manager.git
-   ```
-2. 安装依赖:
-   ```bash
-   pip install -r requirements.txt
-   ```
-3. 运行:
-   ```bash
-   python create_window_gui.py
-   ```
+</td>
+<td align="center" width="20%">
 
-## ⚙️ 配置文件说明 (Configuration)
+**💳 Vo Card**  
+GPT/Gemini认证，不过包退
 
-请在程序运行目录下创建以下文件：
+👉 **[chatgptcard.xyz](https://chatgptcard.xyz)**
 
-### 1. `accounts.txt` (账号信息)
+</td>
+<td align="center" width="20%">
 
-**📌 分隔符配置方式**
+**🤖 AI 成品号**  
+Gemini/GPT/Grok 现货批发
 
-在文件**第一行**配置分隔符（取消注释即可）：
+👉 **[tehuio.com](https://tehuio.com)**
 
-```text
-# 分隔符配置（取消注释其中一行）
-分隔符="----"
-# 分隔符="---"
-# 分隔符="|"
-# 分隔符=","
-```
+</td>
+<td align="center" width="20%">
 
-**📋 账号格式说明**
+**🔥 AI 源头批发**  
+ChatGPT/Gemini/Grok 续费
 
-格式（字段顺序固定）：`邮箱[分隔符]密码[分隔符]辅助邮箱[分隔符]2FA密钥`
+👉 **[m.ifaka.cloud](https://m.ifaka.cloud)**
 
-```text
-# 标准格式（使用 ---- 分隔）
-分隔符="----"
-example1@gmail.com----MyPassword123----backup1@email.com----ABCD1234EFGH5678
-example2@gmail.com----P@ssw0rd!%%99----backup2@email.com----WXYZ9012STUV3456
+</td>
+</tr>
+</table>
 
-# 只有邮箱和密码（辅助邮箱和2FA可选）
-example3@gmail.com----ComplexP@ss#2024
-
-# 使用竖线分隔
-分隔符="|"
-example4@gmail.com|AnotherPass!|QRST5678UVWX1234
-
-# 使用三短横线
-分隔符="---"
-example5@gmail.com---My#Pass@456---helper@email.com---LMNO3456PQRS7890
-```
-
-**✅ 重要说明**：
-- **智能字段识别**：程序会自动判断每个字段是邮箱、密码、辅助邮箱还是2FA密钥
-- **灵活字段顺序**：字段可以任意顺序排列，程序自动识别
-- **密码支持特殊字符**：`@#$%^&*`等都可以
-- **字段可选**：辅助邮箱和2FA密钥都是可选的
-- **注释**：以 `#` 开头的行会被忽略
-- **一个文件只能用一种分隔符**
-- **账号状态**：从accounts.txt导入的账号默认状态为 `pending_check`（待检测资格）
-
-**🔍 智能识别规则**：
-- **邮箱**：包含 `@` 和 `.` 的字符串（第1个=主邮箱，第2个=辅助邮箱）
-- **2FA密钥**：16位以上的纯大写字母+数字组合
-- **密码**：其他所有字符串
-
-**📝 支持的格式示例**：
-```text
-# 完整4个字段
-user@gmail.com----Pass123----backup@mail.com----ABCD1234EFGH5678
-
-# 3个字段：邮箱+密码+2FA（自动识别）
-user@gmail.com----Pass456----WXYZ5678IJKL9012
-
-# 3个字段：邮箱+密码+辅助邮箱（自动识别）
-user@gmail.com----Pass789----backup@mail.com
-
-# 2个字段：只有邮箱和密码
-user@gmail.com----Pass000
-
-# 混合顺序也可以（程序自动识别）
-user@gmail.com----SECRETKEY1234----MyPassword
-```
-
-**💡 推荐分隔符**：
-- `----` (四短横线) - 推荐，最清晰
-- `---` (三短横线) - 也很好用
-- `|` (竖线) - 简洁
-- `,` (逗号) - 需注意密码中不能有逗号
-
-**📋 账号状态说明**：
-- `pending_check` - 待检测资格（从accounts.txt导入）
-- `link_ready` - 有资格待验证
-- `verified` - 已验证未绑卡
-- `subscribed` - 已订阅
-- `ineligible` - 无资格
-- `error` - 错误
-
-### 2. `proxies.txt` (代理IP)
-
-支持 Socks5/HTTP，一行一个：
-
-```text
-socks5://user:pass@host:port
-http://user:pass@host:port
-```
-
-### 3. `cards.txt` (虚拟卡信息) 🆕
-
-格式：`卡号 月份 年份 CVV`（空格分隔）
-
-```text
-5481087170529907 01 32 536
-5481087143137903 01 32 749
-```
-
-**说明**：
-- **卡号**：13-19位数字
-- **月份**：01-12（两位数）
-- **年份**：年份后两位，如2032年填32
-- **CVV**：3-4位安全码
-- 每行一张卡，用于一键绑卡订阅功能
-
-💳 **虚拟卡推荐**：[HolyCard](https://www.holy-card.com/) - 支持Gemini订阅、GPT Team、0刀Plus，一张低至2R
-
-### 4. 输出文件 (程序自动生成)
-
-* **accounts.db**: SQLite 数据库文件（所有账号信息的核心存储）。
-* **sheerIDlink.txt**: 成功提取的验证链接 (有资格待验证已提取链接)。
-* **有资格待验证号.txt**: 有资格但还未提取验证链接的账号。
-* **已验证未绑卡.txt**: 已通过学生验证但未绑卡的账号。
-* **已绑卡号.txt**: 已完成绑卡订阅的账号。
-* **无资格号.txt**: 检测到无资格 (不可用) 的账号。
-* **超时或其他错误.txt**: 提取超时或发生错误的账号。
-* **sheerID_verified_success.txt**: 验证成功的 SheerID 链接。
-* **sheerID_verified_failed.txt**: 验证失败的链接及原因。
-* **2fa_codes.txt**: 生成的 2FA 验证码。
-
-### 4. Web 管理界面
-
-程序启动后，自动在后台启动 Web 服务器（端口 8080）。
-
-1. 打开浏览器访问: `http://localhost:8080`
-2. 即可查看所有账号状态、搜索筛选、批量导出等。
-
-## 🤝 联系与交流 (Community)
-
-有问题或建议？欢迎加入我们的社区！
-
-|           💬**Telegram 群组**           |    🐧**QQ 交流群**    |
-| :--------------------------------------------: | :-------------------------: |
-| [点击加入 / Join](https://t.me/+9zd3YE16NCU3N2Fl) | **QQ群号: 330544197** |
-|           ![Telegram QR](Telegram.png)           |       ![QQ QR](QQ.jpg)       |
-
-👤 **联系开发者**: QQ 2738552008
-赞赏：
-![赞赏](zanshang.jpg)
 ---
 
-## ⚠️ 免责声明 (Disclaimer)
+## 📋 项目简介
 
-* 本工具仅供学习与技术交流使用，请勿用于非法用途。
-* 请遵守比特浏览器及相关平台的使用条款。
-* 开发者不对因使用本工具产生的任何账号损失或法律责任负责。
+本项目提供两套完整的比特浏览器自动化解决方案，满足不同场景需求：
 
-## 📄 License
+### 🌐 [Auto_All_System](Auto_All_System/) - 企业级 Web 管理系统
+- **Django 5.0 + Vue 3** 构建的现代化 Web 平台
+- 适合团队协作、多用户管理、大规模批量处理
+- 完整的权限系统、任务队列、插件化架构
+- **[查看详细文档 →](Auto_All_System/README.md)**
 
-This project is licensed under the [MIT License](LICENSE).
+### 🖥️ [Auto_All_System_Pyqt](Auto_All_System_Pyqt/) - 桌面应用
+- **PyQt6** 开发的轻量级桌面工具
+- 适合个人使用、快速上手、本地运行
+- 一键启动、无需配置服务器
+- **[查看详细文档 →](Auto_All_System_Pyqt/README.md)**
+
+---
+
+## ✨ 功能特性
+
+### 🎯 核心功能
+
+| 功能 | Web 系统 | 桌面应用 | 说明 |
+|------|----------|----------|------|
+| **批量窗口管理** | ✅ | ✅ | 批量创建、配置、操作比特浏览器窗口 |
+| **账号管理** | ✅ | ✅ | 批量导入、分类、状态追踪 |
+| **SheerID 验证** | ✅ | ✅ | 自动提取链接、API批量验证 |
+| **自动绑卡订阅** | ✅ | ✅ | 全自动填写信用卡并完成订阅 |
+| **一键全自动** | ✅ | ✅ | 登录→检测→验证→绑卡 全流程 |
+| **多用户权限** | ✅ | ❌ | RBAC 权限控制 |
+| **任务队列** | ✅ | ❌ | Celery 分布式任务调度 |
+| **插件系统** | ✅ | ❌ | 动态加载、热插拔 |
+| **实时监控** | ✅ | ✅ | 任务进度、日志输出 |
+
+### 🚀 自动化流程
+
+```mermaid
+graph LR
+    A[导入账号] --> B[批量创建窗口]
+    B --> C[自动登录 Google]
+    C --> D{检测资格}
+    D -->|有资格| E[提取 SheerID 链接]
+    D -->|无资格| F[标记无资格]
+    E --> G[API 批量验证]
+    G --> H{验证结果}
+    H -->|成功| I[自动绑卡订阅]
+    H -->|失败| J[标记失败]
+    I --> K[完成]
+```
+
+---
+
+## 🛠️ 技术栈
+
+### Web 系统 (Auto_All_System)
+
+<table>
+<tr>
+<td width="50%">
+
+**后端**
+- 🐍 **Django 5.0** - Web 框架
+- 🗄️ **PostgreSQL** - 数据库
+- ⚡ **Redis** - 缓存/队列
+- 🔄 **Celery** - 异步任务
+- 🎭 **Playwright** - 浏览器自动化
+- 🔐 **JWT** - 身份认证
+
+</td>
+<td width="50%">
+
+**前端**
+- 💚 **Vue 3** - 渐进式框架
+- 📘 **TypeScript** - 类型安全
+- 🎨 **Element Plus** - UI 组件库
+- 🍍 **Pinia** - 状态管理
+- 📦 **Vite** - 构建工具
+- 🔀 **Vue Router** - 路由管理
+
+</td>
+</tr>
+<tr>
+<td colspan="2">
+
+**DevOps**
+- 🐳 **Docker** - 容器化
+- 🌐 **Nginx** - Web 服务器
+- 🔧 **Docker Compose** - 服务编排
+
+</td>
+</tr>
+</table>
+
+### 桌面应用 (Auto_All_System_Pyqt)
+
+- 🖼️ **PyQt6** - 跨平台 GUI 框架
+- 🎭 **Playwright** - 浏览器自动化
+- 💾 **SQLite** - 轻量级数据库
+- 🔐 **Cryptography** - 数据加密
+
+---
+
+## 🚀 快速开始
+
+### 选择适合你的版本
+
+#### 👥 团队使用 / 需要 Web 界面
+```bash
+# 进入 Web 系统目录
+cd Auto_All_System
+
+# Windows 一键启动
+双击运行: 一键启动.bat
+
+# Linux/Mac
+docker-compose up -d
+```
+
+**访问**: http://localhost/  
+**详细文档**: [Auto_All_System/README.md](Auto_All_System/README.md)
+
+---
+
+#### 🖥️ 个人使用 / 快速上手
+```bash
+# 进入桌面应用目录
+cd Auto_All_System_Pyqt
+
+# Windows 一键启动
+双击运行: scripts/启动项目.bat
+
+# 或手动启动
+pip install -r data/requirements.txt
+playwright install chromium
+cd src && python create_window_gui.py
+```
+
+**详细文档**: [Auto_All_System_Pyqt/README.md](Auto_All_System_Pyqt/README.md)
+
+---
+
+## 📖 文档
+
+### 📚 Web 系统文档
+- [📖 系统说明](Auto_All_System/README.md)
+- [🚀 快速开始](Auto_All_System/文档/00-快速开始.md)
+- [🗄️ 数据库设计](Auto_All_System/文档/01-数据库设计文档.md)
+- [🏗️ 系统架构](Auto_All_System/文档/02-系统架构与配置.md)
+- [🎨 前端功能](Auto_All_System/文档/03-前端页面功能说明.md)
+- [🔌 API 接口](Auto_All_System/文档/04-API接口文档.md)
+- [🧩 插件架构](Auto_All_System/文档/07-插件化架构设计.md)
+- [🌐 比特浏览器 API](Auto_All_System/文档/17-比特浏览器API完整开发指南.md)
+
+### 🖥️ 桌面应用文档
+- [📖 项目说明](Auto_All_System_Pyqt/README.md)
+- [🚀 快速开始](Auto_All_System_Pyqt/docs/快速开始.md)
+- [⚙️ 功能说明](Auto_All_System_Pyqt/docs/功能说明.md)
+- [❓ 常见问题](Auto_All_System_Pyqt/docs/常见问题.md)
+- [📁 数据文件说明](Auto_All_System_Pyqt/data/README.md)
+
+---
+
+## 📁 项目结构
+
+```
+auto_bitbrowser/
+├── Auto_All_System/              # Django + Vue Web 系统
+│   ├── backend/                  # Django 后端
+│   │   ├── apps/                 # 应用模块
+│   │   ├── config/               # 配置
+│   │   └── plugins/              # 插件
+│   ├── frontend/                 # Vue 前端
+│   │   ├── src/                  # 源代码
+│   │   └── dist/                 # 构建输出
+│   ├── 文档/                     # 完整文档
+│   └── docker-compose.yml        # Docker 配置
+│
+├── Auto_All_System_Pyqt/         # PyQt 桌面应用
+│   ├── src/                      # 源代码
+│   ├── data/                     # 数据文件
+│   ├── docs/                     # 文档
+│   ├── scripts/                  # 启动脚本
+│   └── resources/                # 资源文件
+│
+├── .gitignore                    # Git 忽略配置
+├── .gitattributes                # Git 属性配置
+└── README.md                     # 本文件
+```
+
+---
+
+## ⚙️ 系统要求
+
+### Web 系统
+- **Python**: 3.12+
+- **Node.js**: 18+
+- **PostgreSQL**: 14+
+- **Redis**: 7+
+- **Docker**: 20+ *(推荐)*
+
+### 桌面应用
+- **Python**: 3.8+
+- **比特浏览器**: 需启用 API 接口
+- **操作系统**: Windows 10+
+
+---
+
+## 🔒 安全提示
+
+### ⚠️ 敏感数据保护
+
+本项目已配置 `.gitignore` 排除以下敏感文件：
+
+- ❌ `accounts.txt` - 账号密码
+- ❌ `proxies.txt` - 代理信息
+- ❌ `cards.txt` - 信用卡信息
+- ❌ `*.db` - 数据库文件
+- ❌ `.env` - 环境变量
+
+### ✅ 使用建议
+
+- 🔐 使用强密码，定期更换
+- 💾 定期备份重要数据
+- 🚫 不要分享数据库文件
+- ⚖️ 仅用于管理自己的合法账号
+
+---
+
+## 🤝 联系与交流
+
+### 💬 社区交流
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+**Telegram 群组**
+
+[![Telegram](Auto_All_System_Pyqt/resources/Telegram.png)](https://t.me/+9zd3YE16NCU3N2Fl)
+
+[点击加入](https://t.me/+9zd3YE16NCU3N2Fl)
+
+</td>
+<td align="center" width="50%">
+
+**QQ 交流群**
+
+![QQ](Auto_All_System_Pyqt/resources/QQ.jpg)
+
+**QQ群号: 330544197**
+
+</td>
+</tr>
+</table>
+
+### 👤 开发者
+
+- **QQ**: 2738552008
+- **使用教程**: [https://docs.qq.com/doc/DSEVnZHprV0xMR05j](https://docs.qq.com/doc/DSEVnZHprV0xMR05j?no_promotion=1&is_blank_or_template=blank)
+
+### ☕ 赞赏支持
+
+<div align="center">
+
+![赞赏](Auto_All_System_Pyqt/resources/zanshang.jpg)
+
+*如果这个项目对你有帮助，欢迎请作者喝杯咖啡 ☕*
+
+</div>
+
+---
+
+## ⚠️ 免责声明
+
+- 本工具仅供学习与技术交流使用，请勿用于非法用途
+- 请遵守比特浏览器及相关平台的使用条款
+- 开发者不对因使用本工具产生的任何账号损失或法律责任负责
+- 使用本工具即表示您同意自行承担所有风险
+
+---
+
+## 📄 许可证
+
+MIT License - 详见 [LICENSE](LICENSE)
+
+---
+
+## 🎉 开始使用
+
+### 我该选择哪个版本？
+
+#### 选择 Web 系统，如果你：
+- ✅ 需要团队协作和多用户管理
+- ✅ 需要通过浏览器访问
+- ✅ 需要大规模批量处理（100+账号）
+- ✅ 需要详细的任务调度和监控
+- ✅ 需要插件扩展功能
+
+#### 选择桌面应用，如果你：
+- ✅ 个人使用
+- ✅ 快速上手，不想配置服务器
+- ✅ 中小规模处理（<100账号）
+- ✅ 只需要基本功能
+
+#### 两个都部署，如果你：
+- ✅ 想要最完整的功能
+- ✅ Web 系统管理，桌面应用执行
+- ✅ 数据可互通共享
+
+---
+
+<div align="center">
+
+**🚀 选择你需要的系统，开始自动化之旅！**
+
+查看对应文档了解详细使用方法
+
+[Web 系统文档](Auto_All_System/README.md) | [桌面应用文档](Auto_All_System_Pyqt/README.md)
+
+---
+
+**Version**: 2.0.0 | **Last Updated**: 2026-01-19
+
+Made with ❤️ by Auto All System Team
+
+</div>
