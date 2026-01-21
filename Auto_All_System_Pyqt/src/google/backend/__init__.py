@@ -20,6 +20,7 @@ from .google_auth import (
     navigate_and_check_login,
     google_login,
     check_google_one_status,
+    ensure_google_login,
 )
 from .google_login_service import (
     GoogleLoginService,
@@ -60,6 +61,7 @@ __all__ = [
     'navigate_and_check_login',
     'google_login',
     'check_google_one_status',
+    'ensure_google_login',
     # 登录服务便捷函数
     'login_google_account',
     'check_browser_login_status',

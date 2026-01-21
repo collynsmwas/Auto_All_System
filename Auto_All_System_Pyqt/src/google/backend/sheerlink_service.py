@@ -147,10 +147,14 @@ class SheerLinkService:
                 self.log("浏览器预热...")
                 await asyncio.sleep(2)
                 
-                # 执行登录
-                self.log("执行自动登录...")
-                await google_login(page, account_info)
-                await asyncio.sleep(3)
+                # 执行登录（先检查状态，未登录才执行）
+                self.log("检查并执行登录...")
+                from .google_auth import ensure_google_login
+                login_success, login_msg = await ensure_google_login(page, account_info)
+                if not login_success:
+                    return False, f"登录失败: {login_msg}"
+                self.log(f"登录状态: {login_msg}")
+                await asyncio.sleep(2)
                 
                 # 导航到Google One AI页面
                 self.log("导航到Google One页面...")

@@ -395,46 +395,109 @@ async def check_google_one_status(page: Page, timeout: float = 10.0) -> Tuple[st
     """
     import time
     start_time = time.time()
+    print(f"[GoogleOne] 开始检测状态 (超时: {timeout}秒)...")
     
     while time.time() - start_time < timeout:
         try:
-            # 1. 检查CSS类判断状态
-            # 有资格
-            if await page.locator('.krEaxf.ZLZvHe.rv8wkf.b3UMcc').count() > 0:
-                pass  # 继续检查具体状态
-            
-            # 无资格
-            if await page.locator('.krEaxf.tTa5V.rv8wkf.b3UMcc').count() > 0:
-                return "ineligible", None
-            
-            # 2. 检查"已订阅"
+            # 1. 首先检查"已订阅" - 优先级最高
             for phrase in SUBSCRIBED_PHRASES:
-                if await page.locator(f'text="{phrase}"').is_visible():
-                    return "subscribed", None
+                try:
+                    locator = page.locator(f'text="{phrase}"')
+                    if await locator.count() > 0 and await locator.first.is_visible():
+                        print(f"[GoogleOne] 检测到: {phrase} -> subscribed")
+                        return "subscribed", None
+                except:
+                    pass
             
-            # 3. 检查"已验证未绑卡"
+            # 2. 检查"已验证未绑卡" (Get student offer)
             for phrase in VERIFIED_UNBOUND_PHRASES:
-                if await page.locator(f'text="{phrase}"').is_visible():
-                    return "verified", None
+                try:
+                    locator = page.locator(f'text="{phrase}"')
+                    if await locator.count() > 0 and await locator.first.is_visible():
+                        print(f"[GoogleOne] 检测到: {phrase} -> verified")
+                        return "verified", None
+                except:
+                    pass
             
-            # 4. 检查"无资格"
+            # 3. 检查SheerID链接 (有资格待验证)
+            try:
+                link_element = page.locator('a[href*="sheerid.com"]').first
+                if await link_element.count() > 0:
+                    href = await link_element.get_attribute("href")
+                    print(f"[GoogleOne] 检测到SheerID链接 -> link_ready")
+                    return "link_ready", href
+            except:
+                pass
+            
+            # 4. 检查"Verify eligibility"按钮
+            try:
+                verify_btn = page.locator('text="Verify eligibility"')
+                if await verify_btn.count() > 0 and await verify_btn.first.is_visible():
+                    print(f"[GoogleOne] 检测到Verify eligibility -> link_ready")
+                    return "link_ready", None
+            except:
+                pass
+            
+            # 5. 检查"无资格" - 放在最后检测
             for phrase in NOT_AVAILABLE_PHRASES:
-                if await page.locator(f'text="{phrase}"').is_visible():
-                    return "ineligible", None
-            
-            # 5. 检查SheerID链接
-            link_element = page.locator('a[href*="sheerid.com"]').first
-            if await link_element.count() > 0:
-                href = await link_element.get_attribute("href")
-                return "link_ready", href
-            
-            # 6. 检查"Verify eligibility"按钮
-            if await page.locator('text="Verify eligibility"').count() > 0:
-                return "link_ready", None
+                try:
+                    locator = page.locator(f'text="{phrase}"')
+                    if await locator.count() > 0 and await locator.first.is_visible():
+                        print(f"[GoogleOne] 检测到: {phrase} -> ineligible")
+                        return "ineligible", None
+                except:
+                    pass
             
             await asyncio.sleep(0.5)
             
         except Exception as e:
+            print(f"[GoogleOne] 检测异常: {e}")
             await asyncio.sleep(1)
     
+    print(f"[GoogleOne] 检测超时")
     return "timeout", None
+
+
+# ==================== 完整登录流程封装 ====================
+
+async def ensure_google_login(page: Page, account_info: dict) -> Tuple[bool, str]:
+    """
+    @brief 确保Google已登录（先检查状态，未登录才执行登录）
+    @param page Playwright页面对象
+    @param account_info 账号信息字典
+    @return (success, message)
+    
+    使用示例:
+        success, msg = await ensure_google_login(page, account_info)
+        if success:
+            # 继续后续操作
+    """
+    email = account_info.get('email', '')
+    print(f"[EnsureLogin] 检查登录状态: {email}")
+    
+    # 1. 先检查当前状态
+    status, info = await check_google_login_status(page)
+    
+    if status == GoogleLoginStatus.LOGGED_IN:
+        logged_email = info.get('email', '')
+        if logged_email:
+            if logged_email.lower() == email.lower():
+                print(f"[EnsureLogin] 已登录正确账号: {logged_email}")
+                return True, f"已登录: {logged_email}"
+            else:
+                print(f"[EnsureLogin] 当前账号 {logged_email} 与目标 {email} 不符，需重新登录")
+        else:
+            print(f"[EnsureLogin] 已登录（账号未知），继续使用")
+            return True, "已登录"
+    
+    # 2. 未登录，执行登录流程
+    print(f"[EnsureLogin] 未登录，开始登录流程...")
+    success, message = await google_login(page, account_info)
+    
+    if success:
+        print(f"[EnsureLogin] 登录成功: {message}")
+    else:
+        print(f"[EnsureLogin] 登录失败: {message}")
+    
+    return success, message
+
